@@ -1,0 +1,37 @@
+---
+import Container from './Container.astro';
+---
+
+<footer>
+  <Container class='py-14 lg:py-16 border-t border-dashed'>
+    <div class='flex items-center justify-between'>
+      <p class='text-muted-foreground text-sm'>© Coconuts in winter</p>
+      <!-- <a
+        href='https://marblecms-web.vercel.app'
+        target='_blank'
+        class='text-muted-foreground text-sm'>Powered by marble</a
+      > -->
+      <a
+        class='text-muted-foreground hover:text-foreground'
+        href='/rss.xml'
+        target='_blank'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke-width='1.5'
+          stroke='currentColor'
+          class='size-4'
+        >
+          <title>Rss Feed</title>
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z'
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </Container>
+</footer>

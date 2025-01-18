@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground: 223 16% 9%;
+    --background: 36 24% 96%;
+    --muted-foreground: 45 2% 36%;
+
+    --border: 0 0% 75%;
+    --card: hsl 28 76% 95%;
+
+    --scrollbar-thumb: 0 0% 37%;
+    --scrollbar-thumb-hover: 0 0% 40%;
+  }
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/Manrope-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Literata';
+  src: url('/fonts/Literata-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NovaMono';
+  src: url('/fonts/NovaMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color: hsl(var(--foreground));
+    background: hsl(var(--background));
+    font-family: Manrope, system-ui, sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.dfd {
+  color: #f7f5f2;
+  background-color: #f7f6f5;
+}

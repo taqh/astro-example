@@ -1,0 +1,65 @@
+---
+import Image from 'astro/components/Image.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+  entry: CollectionEntry<'posts'>;
+};
+
+const { entry } = Astro.props as Props;
+const { title, description, coverImage, publishedAt, author, slug } =
+  entry.data;
+
+const formattedDate = new Date(publishedAt)
+  .toLocaleDateString('en-US', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
+  .split('/')
+  .join('.');
+---
+
+<li class='flex flex-col gap-4'>
+  <div class='relative group z-10 rounded-t-md min-h-[240px]'>
+    <Image
+      src={coverImage}
+      alt={title}
+      width={350}
+      height={200}
+      class='object-cover size-full h-[260px]'
+    />
+  </div>
+  <a
+    href={`/blog/${slug}`}
+    class='hover:text-muted-foreground transition duration-300'
+  >
+    <h2 class='font-serif text-2xl'>{title}</h2>
+  </a>
+  <div class='flex items-center gap-2 font-mono text-muted-foreground'>
+    <time datetime={publishedAt.toISOString()}>{formattedDate}</time>
+    <span class='mx-2'>-</span>
+    <p>
+      {author.name}
+    </p>
+  </div>
+  <p class='text-muted-foreground line-clamp-2'>{description}</p>
+  <div>
+    <a href={`/blog/${slug}`} class='hover:underline flex items-center gap-2'>
+      <span>Read post</span>
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke-width='1.5'
+        stroke='currentColor'
+        class='size-3'
+      >
+        <path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'></path>
+      </svg>
+    </a>
+  </div>
+</li>

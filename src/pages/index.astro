@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import Container from '@/components/Container.astro';
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import PostCard from '@/components/PostCard.astro';
+import { SITE } from '@/utils/site';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = await getCollection('posts');
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title={SITE.TITLE}
+  description={SITE.DESCRIPTION}
+>
+  <Container
+    class='border-t border-dashed min-h-[calc(100vh-100px)] py-16'
+  >
+    <ul
+      class='grid justify-center gap-20 grid-cols-[repeat(auto-fill,minmax(0,_400px))] w-full'
+    >
+      {posts.slice(0, 4).map((post) => <PostCard entry={post} />)}
+    </ul>
+    {
+      posts.length > 4 && (
+        <div class='flex justify-center mt-8'>
+          <a href='/blog' class='hover:underline'>
+            See All
+          </a>
+        </div>
+      )
+    }
+  </Container>
 </Layout>

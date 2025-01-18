@@ -1,0 +1,74 @@
+---
+import Container from '@/components/Container.astro';
+import Prose from '@/components/Prose.astro';
+import Layout from '@/layouts/Layout.astro';
+import Image from 'astro/components/Image.astro';
+import { render } from 'astro:content';
+import { getCollection } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('posts');
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formattedDate = new Date(entry.data.publishedAt).toLocaleDateString(
+  'en-US',
+  {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }
+);
+---
+
+<Layout
+  title={`${entry.data.title} - Coconuts in winter`}
+  description={entry.data.description}
+  image={entry.data.coverImage}
+>
+  <Container class='border-t border-dashed min-h-[calc(100vh-100px)] py-14'>
+    <section class='space-y-6 lg:space-y-8 max-w-3xl mx-auto'>
+      <div class='flex flex-col items-center gap-4'>
+        <h1 class='font-serif text-3xl lg:text-4xl text-center'>
+          {entry.data.title}
+        </h1>
+        <time datetime={entry.data.publishedAt.toISOString()}
+          >{formattedDate}</time
+        >
+        <div class='flex items-center gap-2'>
+          <Image
+            src={entry.data.author.image}
+            alt={entry.data.author.name}
+            width={36}
+            height={36}
+            class='aspect-square shrink-0 size-8 rounded-full'
+          />
+          <p class='text-muted-foreground'>
+            {entry.data.author.name}
+          </p>
+        </div>
+      </div>
+      <div class='relative'>
+        <Image
+          src={entry.data.coverImage}
+          alt={entry.data.title}
+          width={1920}
+          height={560}
+          class='aspect-w-16 aspect-h-9'
+        />
+      </div>
+      <Prose>
+        <!-- <Content /> -->
+        <div set:html={entry.data.content} />
+      </Prose>
+    </section>
+  </Container>
+</Layout>
