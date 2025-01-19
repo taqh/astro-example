@@ -8,8 +8,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), sitemap()],
-  site: "https://coconutsinwinter.vercel.app",
+  site: 'https://coconutsinwinter.vercel.app',
   experimental: {
     svg: true,
   },
+  // image: {
+  //   remotePatterns: [{ protocol: 'https' }],
+  // },
 });

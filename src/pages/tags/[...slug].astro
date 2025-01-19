@@ -1,0 +1,60 @@
+---
+import Container from '@/components/Container.astro';
+import PostCard from '@/components/PostCard.astro';
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/utils/site';
+import { getCollection } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  const tagSlugs = [
+    ...new Set(posts.flatMap((post) => post.data.tags.map((tag) => tag.slug))),
+  ];
+
+  return tagSlugs.map((slug) => {
+    const filteredPosts = posts.filter((post) =>
+      post.data.tags.some((tag) => tag.slug === slug)
+    );
+
+    // Find the tag name from any post that has this tag
+    const tagName =
+      filteredPosts[0]?.data.tags.find((tag) => tag.slug === slug)?.name ||
+      slug;
+
+    return {
+      params: { slug },
+      props: { posts: filteredPosts, tagName },
+    };
+  });
+}
+
+const { posts, tagName } = Astro.props;
+---
+
+<Layout
+  title={`${tagName} | ${SITE.TITLE}`}
+  description={`A list of posts tagged with: ${tagName}`}
+>
+  <Container class='border-t border-dashed'>
+    <section class='space-y-12 lg:space-y-16 border-dashed py-16'>
+      <div class='space-y-4 flex flex-col items-center'>
+        <h1 class='font-serif text-3xl text-center'>
+          Posts tagged with: {tagName}
+        </h1>
+        <a
+          href='/tags'
+          class='underline hover:text-muted-foreground font-mono text-center'
+          >See all tags</a
+        >
+      </div>
+      <ul
+        class='grid justify-center gap-20 grid-cols-[repeat(auto-fill,minmax(0,_400px))] w-full'
+      >
+        {posts.slice(0, 4).map((post) => <PostCard entry={post} />)}
+      </ul>
+    </section>
+  </Container>
+</Layout>

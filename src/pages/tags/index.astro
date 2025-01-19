@@ -1,10 +1,35 @@
 ---
 import Container from '@/components/Container.astro';
 import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/utils/site';
+const key = import.meta.env.MARBLE_API_KEY;
+const url = import.meta.env.MARBLE_API_URL;
+
+interface Tag {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+const tags: Tag[] = await fetch(`${url}/tags/${key}`).then((res) => res.json());
 ---
 
-<Layout title='Tags' description='A list of tags used in the blog'>
-  <Container>
-    <p>Nothing to see here</p>
+<Layout title={`Tags | ${SITE.TITLE}`} description='A list of tags used in the blog'>
+  <Container class='border-t border-dashed min-h-[calc(100vh-201px)] py-16'>
+    <section class='space-y-12 border-dashed py-10'>
+      <div class='flex flex-col items-center space-y-4'>
+        <h1 class='font-serif text-3xl text-center'>Tag Index</h1>
+        <p class="font-mono">Showing all tags on the site</p>
+      </div>
+      <ul class='flex items-center gap-4 flex-wrap max-w-2xl mx-auto'>
+        {
+          tags.map((tag) => (
+            <li class='border-amber-600 border bg-amber-100 text-amber-700 rounded-md p-2 text-sm'>
+              <a href={`/tags/${tag.slug}`}>{tag.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </Container>
 </Layout>

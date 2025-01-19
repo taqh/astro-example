@@ -1,0 +1,33 @@
+---
+import Container from '../components/Container.astro';
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title='Page not found'>
+  <Container
+    class='border-t border-dashed min-h-[calc(100vh-201px)] py-16 flex items-center justify-center'
+  >
+    <div class='flex items-center flex-col gap-4'>
+      <h1 class='font-serif text-3xl text-center'>Page not found</h1>
+      <a
+        href='/'
+        class='flex items-center gap-2 bg-amber-50 border-amber-400 border hover:border-amber-500 transition duration-300 p-2 rounded-md'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke-width='1.5'
+          stroke='currentColor'
+          class='size-4'
+        >
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M7.49 12 3.74 8.248m0 0 3.75-3.75m-3.75 3.75h16.5V19.5'></path>
+        </svg>
+        <span class='ml-2'>Go back home </span>
+      </a>
+    </div>
+  </Container>
+</Layout>

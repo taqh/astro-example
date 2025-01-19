@@ -2,7 +2,8 @@
 import Container from '@/components/Container.astro';
 import Prose from '@/components/Prose.astro';
 import Layout from '@/layouts/Layout.astro';
-import Image from 'astro/components/Image.astro';
+import { SITE } from '@/utils/site';
+import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import { getCollection } from 'astro:content';
 
@@ -30,7 +31,7 @@ const formattedDate = new Date(entry.data.publishedAt).toLocaleDateString(
 ---
 
 <Layout
-  title={`${entry.data.title} - Coconuts in winter`}
+  title={`${entry.data.title} | ${SITE.TITLE}`}
   description={entry.data.description}
   image={entry.data.coverImage}
 >

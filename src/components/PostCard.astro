@@ -1,5 +1,5 @@
 ---
-import Image from 'astro/components/Image.astro';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
-const { title, description, coverImage, publishedAt, author, slug } =
+const { title, description, coverImage, publishedAt, author, slug, tags } =
   entry.data;
 
 const formattedDate = new Date(publishedAt)
@@ -44,7 +44,7 @@ const formattedDate = new Date(publishedAt)
     </p>
   </div>
   <p class='text-muted-foreground line-clamp-2'>{description}</p>
-  <div>
+  <div class='flex items-center justify-between'>
     <a href={`/blog/${slug}`} class='hover:underline flex items-center gap-2'>
       <span>Read post</span>
       <svg
@@ -61,5 +61,16 @@ const formattedDate = new Date(publishedAt)
           d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'></path>
       </svg>
     </a>
+    <ul class='flex items-center gap-2'>
+      {
+        tags.map((tag) => (
+          <li class='text-xs text-muted-foreground hover:text-foreground hover:underline'>
+            <a href={`/tags/${tag.slug}`}>
+              #{tag.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </li>
