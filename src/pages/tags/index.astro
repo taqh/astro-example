@@ -24,7 +24,7 @@ const tags: Tag[] = await fetch(`${url}/tags/${key}`).then((res) => res.json());
         <h1 class='font-serif text-3xl text-center'>Tag Index</h1>
         <p class='font-mono'>Showing all tags on the site</p>
       </div>
-      <ul class='flex items-center gap-4 flex-wrap max-w-2xl mx-auto'>
+      <ul class='flex items-center gap-4 flex-wrap max-w-2xl mx-auto justify-center'>
         {
           tags.map((tag) => (
             <li class='border-amber-600 border bg-amber-100 text-amber-700 rounded-md p-2 text-sm'>
