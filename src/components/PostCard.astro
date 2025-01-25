@@ -21,7 +21,7 @@ const formattedDate = new Date(publishedAt)
 
   const link = attribution ? attribution.url : `/blog/${slug}`;
   const target = attribution ? '_blank' : '_self';
-  const authorName = attribution ? attribution.name : author.name;
+  const authorName = attribution ? attribution.author : author.name;
 ---
 
 <li class='flex flex-col gap-4'>

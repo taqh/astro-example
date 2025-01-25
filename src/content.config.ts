@@ -29,7 +29,7 @@ const postSchema = z.object({
   ),
   attribution: z
     .object({
-      name: z.string(),
+      author: z.string(),
       url: z.string().url(),
     })
     .nullable(),
