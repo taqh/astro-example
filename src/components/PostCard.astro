@@ -21,6 +21,7 @@ const formattedDate = new Date(publishedAt)
 
   const link = attribution ? attribution.url : `/blog/${slug}`;
   const target = attribution ? '_blank' : '_self';
+  const authorName = attribution ? attribution.name : author.name;
 ---
 
 <li class='flex flex-col gap-4'>
@@ -44,12 +45,12 @@ const formattedDate = new Date(publishedAt)
     <time datetime={publishedAt.toISOString()}>{formattedDate}</time>
     <span class='mx-2'>-</span>
     <p>
-      {author.name}
+      {authorName}
     </p>
   </div>
   <p class='text-muted-foreground line-clamp-2'>{description}</p>
   <div class='flex items-center justify-between'>
-    <a href={`/blog/${slug}`} class='hover:underline flex items-center gap-2'>
+    <a href={link} class='hover:underline flex items-center gap-2'>
       <span>Read post</span>
       <svg
         xmlns='http://www.w3.org/2000/svg'
