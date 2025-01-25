@@ -7,7 +7,7 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
-const { title, description, coverImage, publishedAt, author, slug, tags } =
+const { title, description, coverImage, publishedAt, author, slug, tags, attribution } =
   entry.data;
 
 const formattedDate = new Date(publishedAt)
@@ -18,6 +18,9 @@ const formattedDate = new Date(publishedAt)
   })
   .split('/')
   .join('.');
+
+  const link = attribution ? attribution.url : `/blog/${slug}`;
+  const target = attribution ? '_blank' : '_self';
 ---
 
 <li class='flex flex-col gap-4'>
@@ -31,7 +34,8 @@ const formattedDate = new Date(publishedAt)
     />
   </div>
   <a
-    href={`/blog/${slug}`}
+    href={link}
+    target={target}
     class='hover:text-muted-foreground transition duration-300'
   >
     <h2 class='font-serif text-2xl'>{title}</h2>

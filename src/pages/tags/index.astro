@@ -2,7 +2,7 @@
 import Container from '@/components/Container.astro';
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/utils/site';
-const key = import.meta.env.MARBLE_API_KEY;
+const key = import.meta.env.MARBLE_WORKSPACE_KEY;
 const url = import.meta.env.MARBLE_API_URL;
 
 interface Tag {
@@ -11,7 +11,7 @@ interface Tag {
   slug: string;
 }
 
-const tags: Tag[] = await fetch(`${url}/tags/${key}`).then((res) => res.json());
+const tags: Tag[] = await fetch(`${url}/${key}/tags`).then((res) => res.json());
 ---
 
 <Layout

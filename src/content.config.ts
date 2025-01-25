@@ -1,6 +1,6 @@
 import { z, defineCollection } from 'astro:content';
 
-const key = import.meta.env.MARBLE_API_KEY;
+const key = import.meta.env.MARBLE_WORKSPACE_KEY;
 const url = import.meta.env.MARBLE_API_URL;
 
 const postSchema = z.object({
@@ -12,7 +12,6 @@ const postSchema = z.object({
   coverImage: z.string().url(),
   publishedAt: z.coerce.date(),
   author: z.object({
-    id: z.string(),
     name: z.string(),
     image: z.string().url(),
   }),
@@ -28,12 +27,18 @@ const postSchema = z.object({
       slug: z.string(),
     })
   ),
+  attribution: z
+    .object({
+      name: z.string(),
+      url: z.string().url(),
+    })
+    .nullable(),
 });
 type Post = z.infer<typeof postSchema>;
 
 const articleCollection = defineCollection({
   loader: async () => {
-    const response = await fetch(`${url}/posts/${key}`);
+    const response = await fetch(`${url}/${key}/posts`);
     const data: Post[] = await response.json();
     // Must return an array of entries with an id property
     // or an object with IDs as keys and entries as values
