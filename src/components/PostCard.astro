@@ -29,8 +29,8 @@ const formattedDate = new Date(publishedAt)
     <Image
       src={coverImage}
       alt={title}
-      width={350}
-      height={200}
+      inferSize
+      loading="eager"
       class='object-cover size-full h-[260px]'
     />
   </div>

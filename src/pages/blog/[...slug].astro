@@ -4,7 +4,6 @@ import Prose from '@/components/Prose.astro';
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/utils/site';
 import { Image } from 'astro:assets';
-import { render } from 'astro:content';
 import { getCollection } from 'astro:content';
 
 export const prerender = true;
@@ -18,7 +17,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
 
 const formattedDate = new Date(entry.data.publishedAt).toLocaleDateString(
   'en-US',
@@ -50,6 +48,7 @@ const formattedDate = new Date(entry.data.publishedAt).toLocaleDateString(
             alt={entry.data.author.name}
             width={36}
             height={36}
+            loading="eager"
             class='aspect-square shrink-0 size-8 rounded-full'
           />
           <p class='text-muted-foreground'>
@@ -61,13 +60,12 @@ const formattedDate = new Date(entry.data.publishedAt).toLocaleDateString(
         <Image
           src={entry.data.coverImage}
           alt={entry.data.title}
-          width={1920}
-          height={560}
-          class='aspect-w-16 aspect-h-9'
+          inferSize
+          loading="eager"
+          class='object-cover size-full max-sm:max-h-[360px]'
         />
       </div>
       <Prose>
-        <!-- <Content /> -->
         <div set:html={entry.data.content} />
       </Prose>
     </section>
