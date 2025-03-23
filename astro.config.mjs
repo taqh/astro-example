@@ -13,6 +13,9 @@ export default defineConfig({
   experimental: {
     svg: true,
   },
+  image: {
+    domains: ["images.marblecms.com"],
+  },
   adapter: vercel({
     webAnalytics: { enabled: true },
     isr: {

@@ -7,7 +7,7 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
-const { title, description, coverImage, publishedAt, author, slug, tags, attribution } =
+const { title, description, coverImage, publishedAt, authors, slug, tags, attribution } =
   entry.data;
 
 const formattedDate = new Date(publishedAt)
@@ -21,7 +21,7 @@ const formattedDate = new Date(publishedAt)
 
   const link = attribution ? attribution.url : `/blog/${slug}`;
   const target = attribution ? '_blank' : '_self';
-  const authorName = attribution ? attribution.author : author.name;
+  const authorName = attribution ? attribution.author : authors[0].name;
 ---
 
 <li class='flex flex-col gap-4'>

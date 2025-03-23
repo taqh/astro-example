@@ -1,3 +1,4 @@
+import idleDirective from 'astro/runtime/client/idle.js';
 import { z, defineCollection } from 'astro:content';
 
 const key = import.meta.env.MARBLE_WORKSPACE_KEY;
@@ -11,10 +12,13 @@ const postSchema = z.object({
   description: z.string(),
   coverImage: z.string().url(),
   publishedAt: z.coerce.date(),
-  author: z.object({
-    name: z.string(),
-    image: z.string().url(),
-  }),
+  authors: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      image: z.string().url(),
+    })
+  ),
   category: z.object({
     id: z.string(),
     name: z.string(),
